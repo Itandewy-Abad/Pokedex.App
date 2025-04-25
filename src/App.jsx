@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PokemonCard from "./components/PokemonCard";
-// import "./styles/App.css";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -8,7 +7,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [nextUrl, setNextUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=0");
+  const [nextUrl, setNextUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=20");
   const [hasMore, setHasMore] = useState(true);
 
   const fetchPokemon = async (url) => {
@@ -21,7 +20,7 @@ function App() {
       const detailedData = await Promise.all(
         data.results.map(async (pokemon) => {
           const res = await fetch(pokemon.url);
-          if (!res.ok) throw new Error(`Failed to fetch ${pokemon.name} details}`);
+          if (!res.ok) throw new Error(`Failed to fetch ${pokemon.name} details`);
           const details = await res.json();
 
           return {
@@ -68,7 +67,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1 className="title">P O K É D E X</h1>
+      <h1 className="title">Pokédex</h1>
 
       <input
         type="text"
@@ -96,7 +95,7 @@ function App() {
 
       {hasMore && !loading && (
         <button onClick={loadMore} className="load-more">
-          Cargar más Pokémones
+          Cargar más Pokémon
         </button>
       )}
 
